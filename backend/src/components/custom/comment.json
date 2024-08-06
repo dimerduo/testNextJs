@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_custom_comments",
+  "info": {
+    "displayName": "Comment",
+    "icon": "layer"
+  },
+  "options": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Content": {
+      "type": "blocks"
+    }
+  }
+}
