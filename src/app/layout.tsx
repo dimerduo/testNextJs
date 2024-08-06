@@ -1,4 +1,9 @@
 import type { Metadata } from "next";
+
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer"
+import Container from "@/components/Container/Container";
+
 import './globals.sass'
 
 export const metadata: Metadata = {
@@ -14,9 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div>Header</div>
-        {children}
-        <div>Footer</div>
+        <Header />
+          <Container>
+            {children}
+          </Container>
+        <Footer />
       </body>
     </html>
   );

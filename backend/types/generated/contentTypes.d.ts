@@ -374,10 +374,10 @@ export interface ApiPostPost extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    Title: Attribute.String;
-    ShortCaption: Attribute.Blocks;
-    Content: Attribute.Blocks;
-    LeadImg: Attribute.Media<'images'>;
+    title: Attribute.String;
+    shortCaption: Attribute.Blocks;
+    content: Attribute.Blocks;
+    leadImg: Attribute.Media<'images'>;
     comments: Attribute.Component<'custom.comment', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

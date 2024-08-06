@@ -12,16 +12,16 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Title": {
+    "title": {
       "type": "string"
     },
-    "ShortCaption": {
+    "shortCaption": {
       "type": "blocks"
     },
-    "Content": {
+    "content": {
       "type": "blocks"
     },
-    "LeadImg": {
+    "leadImg": {
       "type": "media",
       "multiple": false,
       "required": false,
