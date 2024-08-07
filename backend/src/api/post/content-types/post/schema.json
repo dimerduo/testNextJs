@@ -16,23 +16,26 @@
       "type": "string"
     },
     "shortCaption": {
-      "type": "blocks"
+      "type": "richtext"
     },
     "content": {
-      "type": "blocks"
+      "type": "richtext"
     },
     "leadImg": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
       "allowedTypes": [
-        "images"
-      ]
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     },
     "comments": {
-      "type": "component",
-      "repeatable": true,
-      "component": "custom.comment"
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "post"
     }
   }
 }

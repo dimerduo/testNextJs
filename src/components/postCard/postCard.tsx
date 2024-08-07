@@ -1,4 +1,4 @@
-import { BlocksRenderer} from '@strapi/blocks-react-renderer'
+import Markdown from 'react-markdown'
 import Link from 'next/link'
 import { IPostCardProps } from '@/interfaces/PostCard'
 
@@ -36,7 +36,7 @@ const PostCard = (props:IPostCardProps) => {
       <div className={styles.Content}>
         <div className={styles.Title}>{title}</div>
         <div className={styles.ShortCaption}>
-          <BlocksRenderer content={shortCaption} />
+          <Markdown>{shortCaption}</Markdown>
         </div>
         <div className={styles.BottomContainer}>
           <Link className={styles.BottomButton} href={`/post/${id}`} >See more</Link>

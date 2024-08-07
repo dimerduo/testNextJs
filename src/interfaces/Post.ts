@@ -4,8 +4,8 @@ export interface IPost {
   id:         number;
   attributes: {
     title:        string;
-    shortCaption: any[];
-    content:      any[];
+    shortCaption: string;
+    content:      string;
     createdAt:    Date;
     updatedAt:    Date;
     publishedAt:  Date;
