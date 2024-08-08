@@ -9,10 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@strapi/blocks-react-renderer": "^1.0.1",
+    "@uiw/react-md-editor": "^4.0.4",
     "next": "14.2.5",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",

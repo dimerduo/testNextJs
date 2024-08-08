@@ -1,8 +1,5 @@
-import { type BlocksContent } from '@strapi/blocks-react-renderer';
+import { IPost } from './Post';
 
 export interface IPostCardProps {
-  id: number;
-  title: string;
-  shortCaption: BlocksContent;
-  image: string;
+  post:         IPost;
 }

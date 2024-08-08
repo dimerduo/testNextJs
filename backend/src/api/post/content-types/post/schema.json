@@ -12,27 +12,30 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Title": {
+    "title": {
       "type": "string"
     },
-    "ShortCaption": {
-      "type": "blocks"
+    "shortCaption": {
+      "type": "richtext"
     },
-    "Content": {
-      "type": "blocks"
+    "content": {
+      "type": "richtext"
     },
-    "LeadImg": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
+    "leadImg": {
       "allowedTypes": [
-        "images"
-      ]
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     },
     "comments": {
-      "type": "component",
-      "repeatable": true,
-      "component": "custom.comment"
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "post"
     }
   }
 }
