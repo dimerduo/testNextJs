@@ -7,6 +7,7 @@ import noImg from "@/../public/noImg.jpg"
 export const getLeadImgUrls = (leadImg: IMediaImg) => {
   let img = ''
   let mImg = ''
+  let cardImg = ''
   
   if(leadImg?.data === null){
     img = noImg.src // standart image placeholder
@@ -15,7 +16,8 @@ export const getLeadImgUrls = (leadImg: IMediaImg) => {
     const { 
       mainImg, 
       mobileImg, 
-      thumbnail, 
+      thumbnail,
+      postCard, 
     } = leadImg.data.attributes.formats
     
     //chouse best possible image for post image
@@ -31,10 +33,18 @@ export const getLeadImgUrls = (leadImg: IMediaImg) => {
     } else {
       mImg = BACKEND_URL + thumbnail.url //fallback to thumbnail image size
     }
+
+    //chouse best possible image for post card
+    if(postCard !== undefined) {
+      cardImg = BACKEND_URL + postCard.url
+    } else {
+      cardImg = BACKEND_URL + thumbnail.url //fallback to thumbnail image size
+    }
   }
 
   return {
     lead: img,
-    mobile: mImg
+    mobile: mImg,
+    postCard: cardImg
   }
 }

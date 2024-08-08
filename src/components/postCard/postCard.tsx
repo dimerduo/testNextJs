@@ -6,33 +6,18 @@ import { BACKEND_URL } from '@/utilites/constant'
 
 import styles from "./styles.module.sass"
 import noImg from "@/../public/noImg.jpg"
+import { getLeadImgUrls } from '@/utilites/utils'
 
 const PostCard = (props:IPostCardProps) => {
   const { post } = props
   const { id } = post
   const { title, shortCaption, leadImg } = post.attributes
-
-  let img = ''
-
-  if(leadImg?.data === null){
-    img = noImg.src // standart image placeholder
-  } else {
-    //@ts-ignore // if data !== null other fields always here
-    const { postCard, thumbnail } = leadImg.data.attributes.formats
-
-    //chouse best possible image for preview
-    if(postCard !== undefined) {
-      img = BACKEND_URL + postCard.url //strapi dont return domain :( 
-    } else {
-      img = BACKEND_URL + thumbnail.url //fallback to thumbnail image size
-    }
-  }
-
+  
   return(
     <div className={styles.PostCard}>
       <div className={styles.Image}>
         <Link href={`/post/${id}`}>
-          <img src={img}/>
+          <img src={getLeadImgUrls(leadImg).postCard}/>
         </Link>
       </div>
       <div className={styles.Content}>
