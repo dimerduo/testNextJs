@@ -1,5 +1,16 @@
+@import '@/utilites/sass/var'
+  
 .Container
   width: 960px
   display: flex
   flex-direction: column
   margin: 0 auto
+
+@include media-tablet
+  .Container
+    width: 600px
+
+@include media-mobile
+  .Container
+    width: 320px
+    padding: 8px

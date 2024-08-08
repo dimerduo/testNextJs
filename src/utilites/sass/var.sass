@@ -1,0 +1,10 @@
+$mobileBreakpoint: 620px 
+$tabletBreakpoint: 980px
+  
+@mixin media-mobile
+  @media (max-width: $mobileBreakpoint)
+    @content
+
+@mixin media-tablet
+  @media (max-width: $tabletBreakpoint) 
+    @content

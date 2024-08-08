@@ -3,7 +3,8 @@ module.exports = () => ({
     config: {
       breakpoints: {
         postCard: 480,
-        mainImg:960
+        mainImg:960,
+        mobileImg:304,
       },
     },
   },

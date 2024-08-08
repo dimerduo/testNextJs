@@ -2,16 +2,17 @@ import { Suspense } from 'react'
 import { API_URL } from "@/utilites/constant"
 
 import PostCard from "@/components/PostCard/PostCard"
-import PageHeader from "@/components/PageHeader";
+import PageHeader from "@/components/PageHeader/PageHeader";
 
 import { IPost } from '@/interfaces/Post';
 
 import styles from "./page.module.sass";
+import { Metadata, Viewport } from 'next';
 
 async function getData() {
   const res = await fetch( 
     API_URL+`/posts?populate=leadImg`,
-    { next: {revalidate: 600 }} //10 min for testing
+    { next: {revalidate: 60 }} //1 min for testing
   ) 
  
   if (!res.ok) {
@@ -19,6 +20,19 @@ async function getData() {
   }
  
   return res.json()
+}
+
+export const metadata: Metadata = {
+  title: 'Test blog app',
+  description: 'created by DimeR',
+}
+
+ 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 }
 
 export default async function Home() {

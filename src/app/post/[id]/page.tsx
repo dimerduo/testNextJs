@@ -1,17 +1,20 @@
 import { Suspense } from 'react'
+import { randomUUID } from 'crypto'
 import Markdown from 'react-markdown';
 
 import { API_URL } from "@/utilites/constant"
-import { BACKEND_URL } from '@/utilites/constant'
+import { getLeadImgUrls } from '@/utilites/utils';
 
-import PageHeader from "@/components/PageHeader";
+import PageHeader from "@/components/PageHeader/PageHeader";
+import CommentForm from '@/components/CommentForm/CommentForm';
+
+import { IComment } from '@/interfaces/Comment';
 
 import styles from "./page.module.sass";
-import noImg from "@/../public/noImg.jpg"
 
 async function getData(id: number) {
   const res = await fetch( 
-    API_URL+`/posts/${id}?populate=leadImg`,
+    API_URL+`/posts/${id}?populate[0]=leadImg&populate[1]=comments`,
     { next: {revalidate: 600 }} //10 min for testing
   ) 
  
@@ -31,34 +34,77 @@ export default async function SinglePost({
 
   const { data: post } = await getData(postID)
   
-  const { title, content, publishedAt, leadImg } = post.attributes
+  const { 
+    title, 
+    content, 
+    publishedAt, 
+    leadImg, 
+    comments 
+  } = post.attributes  
 
-  let img = ''
+  let imgAlt = leadImg.data.attributes.alternativeText
 
-  if(leadImg?.data === null){
-    img = noImg.src // standart image placeholder
-  } else {
-    // @ts-ignore // if data !== null other fields always here
-    const { mainImg = undefined, thumbnail } = leadImg.data.attributes.formats
+  const renderComments = (comments: Array<IComment>) => {
+    return comments.map( (comment: IComment, i: number) => {
+      const { name, content } = comment.attributes
 
-    //chouse best possible image for post image
-    if(mainImg !== undefined) {
-      img = BACKEND_URL + mainImg.url //strapi dont return domain :( 
-    } else {
-      img = BACKEND_URL + thumbnail.url //fallback to thumbnail image size
-    }
-  }
+      const uuid = randomUUID()
+
+      return(
+        <div key={i} className={styles.CommentBody}>
+          <div className={styles.CommentName}>
+            <div className={styles.imgWrp}>
+              <picture>
+                <source
+                  srcSet={`https://i.pravatar.cc/48?u=${uuid}`} 
+                  media='(max-width: 620px)'
+                />
+
+                <img 
+                  src={`https://i.pravatar.cc/64?u=${uuid}`} 
+                  className={styles.CommentAvatar} 
+                  alt='avatar'
+                />
+              </picture>
+            </div>
+            {name}
+          </div>
+          <div className={styles.CommentContent}>
+            <Markdown>
+              {content}
+            </Markdown>
+          </div>
+        </div>
+      )
+    })
+  }  
 
   return (
     <article className={styles.SinglePost}>
       <div className={styles.LeadImg}>
-        <img src={img} alt='' />
+        <picture>
+          <source
+            srcSet={getLeadImgUrls(leadImg).mobile} 
+            media='(max-width: 620px)'
+          />
+          <img src={getLeadImgUrls(leadImg).lead} alt={imgAlt} />
+        </picture>
       </div>
-      <PageHeader>{title} <span>{publishedAt}</span></PageHeader>
+      <PageHeader>
+        {title} 
+        <small className={styles.Time}>
+          {new Date(publishedAt).toLocaleString()}
+        </small>
+      </PageHeader>
       <div className={styles.ContentWrp}>
         <Markdown>{content}</Markdown>
       </div>
-      comments
+      <div className={styles.CommentsWrp}>
+        {renderComments(comments.data)}
+      </div>
+      <Suspense fallback={"Loading comment form...."}>
+        <CommentForm postID={postID}/>
+      </Suspense>
     </article>
   );
 }

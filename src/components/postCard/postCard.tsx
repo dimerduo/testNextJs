@@ -31,7 +31,9 @@ const PostCard = (props:IPostCardProps) => {
   return(
     <div className={styles.PostCard}>
       <div className={styles.Image}>
-        <img src={img}/>
+        <Link href={`/post/${id}`}>
+          <img src={img}/>
+        </Link>
       </div>
       <div className={styles.Content}>
         <div className={styles.Title}>{title}</div>
