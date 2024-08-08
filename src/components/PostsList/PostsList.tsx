@@ -1,7 +1,7 @@
 'use client'
 
 import { API_URL } from "@/utilites/constant";
-import PostCard from "@/components/PostCard/";
+import PostCard from "@/components/PostCard/PostCard";
 import { useState } from "react";
 
 import { IPost } from "@/interfaces/Post"
