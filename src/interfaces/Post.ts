@@ -1,4 +1,4 @@
-import { MediaImg } from "./MediaImg";
+import { IMediaImg } from "./MediaImg";
 
 export interface IPost {
   id:         number;
@@ -9,7 +9,7 @@ export interface IPost {
     createdAt:    Date;
     updatedAt:    Date;
     publishedAt:  Date;
-    leadImg?:     MediaImg;
+    leadImg?:     IMediaImg;
     comments:     any[];
   };
 }

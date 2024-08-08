@@ -8,3 +8,31 @@ $tabletBreakpoint: 980px
 @mixin media-tablet
   @media (max-width: $tabletBreakpoint) 
     @content
+
+@mixin button
+  display: flex
+  align-items: center
+  justify-content: center
+  height: 48px
+  width: fit-content
+  min-width: 200px
+  padding: 4px
+  background-color: #1976d2
+  color: #fff
+  font-size: 18px
+  font-weight: 900
+  text-transform: uppercase
+  text-decoration: none
+  border-radius: 4px
+  border: none
+  border-bottom: 2px solid #1565c0
+  border-top: 1px solid #42a5f5
+  transition: 0.2s ease-in-out
+
+  &:hover
+    filter: opacity(0.9)
+
+  &:active
+    filter: brightness(0.8) contrast(1.2)
+    border-bottom: 1px solid #1565c0
+    border-top: 1px solid #42a5f5

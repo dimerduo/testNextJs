@@ -128,7 +128,9 @@ export default async function SinglePost({
         <Markdown>{content}</Markdown>
       </div>
       <div className={styles.CommentsWrp}>
-        {renderComments(comments.data)}
+        <Suspense fallback={"Loading comments..."}>
+         {renderComments(comments.data)}
+        </Suspense>
       </div>
       <Suspense fallback={"Loading comment form...."}>
         <CommentForm postID={postID}/>

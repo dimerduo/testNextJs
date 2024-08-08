@@ -1,10 +1,12 @@
 'use client'
 
 import { API_URL } from "@/utilites/constant";
-import PostCard from "../PostCard/PostCard";
+import PostCard from "@/components/PostCard/postCard";
 import { useState } from "react";
 
 import { IPost } from "@/interfaces/Post"
+
+import styles from "./styles.module.sass"
 
 const PostsList = ({
   posts,
@@ -45,7 +47,9 @@ const PostsList = ({
     <>
       {postList.map((post: IPost, i: number) => <PostCard key={i} post={post} /> )}
 
-      {showMoreBtn && <button onClick={() => getMorePosts()}>Read more</button>}
+      {showMoreBtn && 
+        <button className={styles.MoreBtn} onClick={() => getMorePosts()}>Read more</button>
+      }
     </>
   )
 } 
