@@ -8,9 +8,12 @@ export const getLeadImgUrls = (leadImg: IMediaImg) => {
   let img = ''
   let mImg = ''
   let cardImg = ''
+  let thumbImg = ''
   
   if(leadImg?.data === null){
-    img = noImg.src // standart image placeholder
+    img = noImg.src // standart no-image placeholder
+    cardImg = noImg.src //no-image placeholder for post card in home page
+    thumbImg = noImg.src
   } else {
     // @ts-ignore // if data !== null other fields always here
     const { 
@@ -19,6 +22,10 @@ export const getLeadImgUrls = (leadImg: IMediaImg) => {
       thumbnail,
       postCard, 
     } = leadImg.data.attributes.formats
+
+    thumbImg = thumbnail.url
+
+    //strapi does not generate larger image for uploaded image, in this case we fallbac to thumbnail image, thaths alwayse exists 
     
     //chouse best possible image for post image
     if(mainImg !== undefined) {
@@ -45,6 +52,7 @@ export const getLeadImgUrls = (leadImg: IMediaImg) => {
   return {
     lead: img,
     mobile: mImg,
-    postCard: cardImg
+    postCard: cardImg,
+    thumbnail: thumbImg
   }
 }

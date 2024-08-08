@@ -1,17 +1,18 @@
 import { Suspense } from 'react'
 import { API_URL } from "@/utilites/constant"
 
-import PostCard from "@/components/PostCard/PostCard"
+import PostsList from "@/components/PostsList/PostsList"
 import PageHeader from "@/components/PageHeader/PageHeader";
-
-import { IPost } from '@/interfaces/Post';
 
 import styles from "./page.module.sass";
 import { Metadata, Viewport } from 'next';
 
+const PAGE_SIZE = 5
+
 async function getData() {
+
   const res = await fetch( 
-    API_URL+`/posts?populate=leadImg`,
+    API_URL+`/posts?populate=leadImg&pagination[pageSize]=${PAGE_SIZE}`,
     { next: {revalidate: 60 }} //1 min for testing
   ) 
  
@@ -45,8 +46,8 @@ export default async function Home() {
         <PageHeader>Blog home page</PageHeader>
       </div>
       <div className={styles.Home__cardsWrp}>
-        <Suspense fallback={'loading...'}>
-          {posts.map((post: IPost, i: number) => <PostCard key={i} post={post} /> )}
+        <Suspense fallback={'loading posts...'}>
+          <PostsList posts={posts} pageSize={PAGE_SIZE} />
         </Suspense>
 
       </div>

@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import { randomUUID } from 'crypto'
 import Markdown from 'react-markdown';
 
-import { API_URL } from "@/utilites/constant"
+import { API_URL, BACKEND_URL } from "@/utilites/constant"
 import { getLeadImgUrls } from '@/utilites/utils';
 
 import PageHeader from "@/components/PageHeader/PageHeader";
@@ -11,6 +11,34 @@ import CommentForm from '@/components/CommentForm/CommentForm';
 import { IComment } from '@/interfaces/Comment';
 
 import styles from "./page.module.sass";
+
+export async function generateMetadata({ params }: { params: { id: number } }) {
+  const { data: post} = await getData(params.id);
+
+  const { 
+    title, 
+    shortCaption, 
+    publishedAt, 
+    leadImg
+  } = post.attributes  
+
+  return {
+    title: `${title} | testNextJs`,
+    openGraph: {
+      title: `${title}`,
+      description: `${shortCaption}`,
+      type: 'article',
+      publishedTime: `${publishedAt}`,
+      images: [
+        {
+          url: `${BACKEND_URL}${getLeadImgUrls(leadImg).thumbnail}`,
+          width: 240,
+          height: 160,
+        }
+      ],
+    },
+  };
+}
 
 async function getData(id: number) {
   const res = await fetch( 

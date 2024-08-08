@@ -1,18 +1,18 @@
+'use client'
+
 import Markdown from 'react-markdown'
 import Link from 'next/link'
 import { IPostCardProps } from '@/interfaces/PostCard'
 
-import { BACKEND_URL } from '@/utilites/constant'
+import { getLeadImgUrls } from '@/utilites/utils'
 
 import styles from "./styles.module.sass"
-import noImg from "@/../public/noImg.jpg"
-import { getLeadImgUrls } from '@/utilites/utils'
 
 const PostCard = (props:IPostCardProps) => {
   const { post } = props
   const { id } = post
   const { title, shortCaption, leadImg } = post.attributes
-  
+
   return(
     <div className={styles.PostCard}>
       <div className={styles.Image}>
